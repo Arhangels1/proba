@@ -1,0 +1,300 @@
+@import url('https://fonts.googleapis.com/css?family=Francois+One');
+$scale: 1em;
+$bg-color: #FFCA74;
+$heart-color: #fa4843;
+$border-color: #fff;
+$text-color: #664390;
+$animation-length: 6s;
+$pop-color: #664390;
+$pop-distance: 1em;
+$pop-time: .5s;
+
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: $bg-color;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 10px;
+}
+
+.wrapper {
+  position: relative;
+  width: 100%;
+  font-size: $scale;
+  .pops {
+    position: absolute;
+    z-index: -1;
+    height: 20em;
+    width: 80em;
+    top: 0;
+    left: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .pop {
+    position: absolute;
+    transform: scale(3);
+    opacity: 0;
+    &.first {
+      left: 26em;
+      top: 8em;
+      .circle {
+        animation-delay: $animation-length *.19;
+      }
+      animation-delay: $animation-length *.19;
+    }
+    
+    &.second {
+      left: 50em;
+      top: 8em;
+      .circle {
+        animation-delay: $animation-length *.33;
+      }
+      animation-delay: $animation-length *.33;
+    }
+    
+    &.third {
+      left: 25em;
+      top: 8em;
+      .circle {
+        animation-delay: $animation-length *.45;
+      }
+      animation-delay: $animation-length *.45;
+    }
+    
+    &.fourth {
+      left: 50em;
+      top: 8em;
+      .circle {
+        animation-delay: $animation-length *.48;
+      }
+      animation-delay: $animation-length *.48;
+    }
+  }
+}
+
+.madewithlove {
+  margin: auto;
+  padding: 3em 3em;
+  box-sizing: border-box;
+  border-left: 1em solid $border-color;
+  border-right: 1em solid $border-color;
+  height: 20em;
+  overflow: hidden;
+  display: flex;
+  width: 80em;
+  letter-spacing: 1em;
+  animation: squeeze $animation-length forwards;
+  transition: width 1s;
+  position:relative;
+  span {
+    font-size: 15em;
+    font-family: 'Francois One', sans-serif;
+    color: $text-color;
+    display: inline-block;
+  }
+  
+  .love {
+    animation: hide .001s $animation-length * .18 forwards;
+  }
+  
+  .you {
+    animation: hide .001s $animation-length * .35 forwards;
+  }
+  
+  .i {
+    animation: hide .001s $animation-length * .5 forwards;
+  }
+
+  .heart {
+    display: inline-block;
+    font-size: 15em;
+    color: $heart-color;
+    opacity: 0;
+    width: 0;
+    margin: auto .2em;
+    animation: heart $animation-length forwards;
+  }
+  
+  .u {
+    visibility: hidden;
+    opacity: 0;
+    width: 0;
+    animation: u $animation-length forwards;
+  }
+
+  @keyframes hide {
+    to {
+      position: absolute; 
+      visibility: hidden;
+      width: 0;
+      height: 0;
+      margin: 0 !important;
+    }
+  }
+  
+  @keyframes u {
+    35%,50.5%,100% {
+      position: absolute;
+      visibility: hidden;
+      opacity: 0;
+    }
+    36%,50%{
+      visibility: visible;
+      position: relative;
+      opacity: 1;
+    }
+    
+  }
+  
+  @keyframes heart {
+    0%, 17.5% {
+      position: absolute;
+      visibility: hidden;
+      opacity: 0;
+      width: 0;
+    }
+    
+    18%{
+      position: relative;
+      visibility: visible;
+      opacity: 1;
+      transform: scale(1);
+      width: auto;
+    }
+    
+    20%, 35%, 51%{
+      transform: scale(1.5);
+    }
+    
+    23%, 34%, 38%, 50%, 54%{
+      transform: scale(1);
+    }
+    
+    100% {
+      opacity: 1;
+      transform: scale(1);
+      width: auto;
+    }
+  }
+  
+  @keyframes squeeze {
+    0% {
+      width: 80em;
+      letter-spacing: 2em;
+    }
+    
+    18% {
+      width: 72em;
+      letter-spacing: 1em;
+    }
+    
+    19% {
+      width: 65em;
+      letter-spacing: -.5em;
+    }
+     
+    30%,32% {
+      width: 55em;
+      letter-spacing: -1em;
+    }
+    
+    40%,46%{
+      width: 39em;
+    }
+    
+    55.5%,100% {
+      width: 30em;
+      letter-spacing: -1em;
+    }
+  }
+}
+
+.pop {
+  width: 10em;
+  height: 10em;
+  border: .2em solid $pop-color;
+  border-radius: 50%;
+  animation: pop $pop-time cubic-bezier(0.64, 0.57, 0.67, 1.53) forwards;
+  position: relative;
+  
+  @keyframes pop {
+    0% {
+      opacity: .25;
+      width: 2em;
+      height: 2em;
+    }
+
+    30% {
+      opacity: 1;
+    }
+
+    60% {
+      opacity: .66;
+      width: 5em;
+      height: 5em;
+      opacity:.25;
+    }
+
+    100% {
+      width: 5em;
+      height: 5em;
+      opacity: 0;
+    }
+  }
+  
+  .circle {
+    width: 1em;
+    height: 1em; 
+    border-radius: 50%;
+    background-color: $pop-color;
+    position: absolute;
+    
+    @for $j from 1 through 10 {
+      $i: $j * 45;
+
+      &.out-#{$i} {
+        animation: out-#{$i} $pop-time - .1 cubic-bezier(0.64, 0.57, 0.67, 1.53) forwards;
+      }
+      @keyframes out-#{$i} {
+        from {
+          @if $i > 0 and $i <= 180 {
+            right: -2em;
+          }@else{
+            left: -2em;
+          }
+
+          @if $i > 90 and $i <= 270 {
+            bottom: -2em;
+          }@else{
+            top: -2em;
+          }
+
+        }
+
+        to {
+          width: .3em;
+          height: .3em; 
+          opacity: 0;
+          @if $i > 0 and $i <= 180 {
+            right: -2em - $pop-distance;
+          }@else{
+            left: -2em - $pop-distance;
+          }
+
+          @if $i > 90 and $i <= 270 {
+            bottom: -2em - $pop-distance;
+          }@else{
+            top: -2em - $pop-distance;
+          }
+        }
+      }
+    }
+  }
+}
+
